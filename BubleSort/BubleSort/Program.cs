@@ -18,10 +18,8 @@ namespace BubleSort
             SortMaxSum(matrix);
             ShowArray(matrix);
 
-
             SortInRow(matrix);
             ShowArray(matrix);
-
 
             SortAllNumbers(matrix);
             ShowArray(matrix);
