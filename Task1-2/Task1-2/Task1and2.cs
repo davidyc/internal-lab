@@ -36,24 +36,18 @@ namespace Task1_2
                 leftSum = 0;
                 rigthSum = 0;
 
-                for (int g = 0; g < i; g++)
-                {
-                    leftSum += array[g];
-                }
+                leftSum = array.Take(i).Sum();
 
-                for (int j = i + 1; j < array.Length; j++)
-                {
-                    rigthSum += array[j];
-                }
+                rigthSum = array.Skip(i).Sum();             
 
-                if (leftSum == rigthSum)
+                if (Math.Abs(rigthSum - leftSum) == 0)
                 {
                     return i;
                 }
-
             }
 
             return -1;
         }
+              
     }
 }
