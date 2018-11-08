@@ -15,7 +15,7 @@ namespace Module4
             int? testb = null;
             int x = 1;
            
-
+        
             var num = new Nullable<int>(100);
 
             Console.WriteLine(testa.IsNull());
