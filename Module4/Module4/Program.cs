@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,14 +11,24 @@ namespace Module4
         static void Main(string[] args)
         {
             int? testa = 100;
-            int? testb = null;
-            int x = 1;
-           
-        
-            var num = new Nullable<int>(100);
-
+            int? testb = null;                    
+               
             Console.WriteLine(testa.IsNull());
             Console.WriteLine(testb.IsNull());
+
+            Console.WriteLine(Task2.GCD(24, 100));
+            Console.WriteLine(Task2.GCD(9, 15, 6, 27));
+
+            Console.WriteLine(Task2.BinaryGCD(24, 100));
+            Console.WriteLine(Task2.BinaryGCD(9, 15, 6, 27));
+
+            Task2.TimeMethodEuclidean(24,100);
+            Task2.TimeMethodStein(24, 100);
+
+
+
+
+
 
 
 
