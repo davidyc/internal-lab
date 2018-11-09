@@ -11,6 +11,6 @@ namespace Module4
         public static bool IsNull<T>(this Nullable<T> obj) where T : struct
         {
             return obj == null ? true : false;
-        };
+        }
     }
 }
