@@ -12,5 +12,10 @@ namespace Module4
         {
             return obj == null ? true : false;
         }
+
+        public static bool IsNull(this object obj)
+        {
+            return obj == null ? true : false;
+        }
     }
 }
