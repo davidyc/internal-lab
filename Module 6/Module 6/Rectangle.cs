@@ -23,7 +23,7 @@ namespace Module_6
         /// <returns>Perimetr</returns>
         public override double Perimeter()
         {
-            return shotSide * longSide;
+            return (shotSide + longSide) * 2;
         }
 
         /// <summary>
@@ -32,7 +32,8 @@ namespace Module_6
         /// <returns></returns>
         public override double Area()
         {
-            return (shotSide + longSide) * 2;
+         
+            return shotSide * longSide;
         }
     }
 }

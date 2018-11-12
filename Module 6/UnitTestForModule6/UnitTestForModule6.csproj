@@ -56,6 +56,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Module 6 task 3\Module 6 task 3.csproj">
+      <Project>{aed5a653-01b4-40e3-a645-8131780dd827}</Project>
+      <Name>Module 6 task 3</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Module 6\Module 6.csproj">
       <Project>{9105b3cd-0e0e-4dd4-bc6f-114c6cb64062}</Project>
       <Name>Module 6</Name>

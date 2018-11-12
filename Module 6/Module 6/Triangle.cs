@@ -27,7 +27,7 @@ namespace Module_6
         public override double Area()
         {
             double halfPer = Perimeter() / 2;
-            double tmp = halfPer * (halfPer - sideA) * (halfPer - sideB) * (halfPer * sideC);
+            double tmp = halfPer * (halfPer - sideA) * (halfPer - sideB) * (halfPer - sideC);
             return Math.Sqrt(tmp);
         }
 
