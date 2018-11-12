@@ -12,7 +12,7 @@ namespace Module_6
         double sideB;
         double sideC;
 
-        public Triangle(double sidea, double sideb, double sidec,)
+        public Triangle(double sidea, double sideb, double sidec)
         {
             sideA = sidea;
             sideB = sideb;
