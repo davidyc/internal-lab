@@ -14,17 +14,7 @@ namespace Module_6
         {
             this.side = side;
         }
-
-        /// <summary>
-        /// Create Squere with random side
-        /// </summary>
-        /// <returns></returns>
-        public override GeometricFigures Create()
-        {
-            Random rnd = new Random();
-            return new Square(rnd.Next(1, 10));
-        }
-
+                
         /// <summary>
         /// Canculate the Perimetr of a Square
         /// </summary>

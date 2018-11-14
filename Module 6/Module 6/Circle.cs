@@ -16,17 +16,7 @@ namespace Module_6
         public Circle(double radius)
         {
             this.radius = radius;
-        }
-
-        /// <summary>
-        /// Create circle
-        /// </summary>
-        /// <returns></returns>
-        public override GeometricFigures Create()
-        {
-            Random rnd = new Random();
-            return new Circle(rnd.Next(1, 10));
-        }
+        }    
 
         /// <summary>
         /// calculation of the Perimeter of ​​a circle
