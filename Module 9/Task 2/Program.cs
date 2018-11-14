@@ -8,6 +8,10 @@ namespace Task_2
 {
     class Program
     {
+        public delegate int Switch(int first, int second);
+        public delegate bool Compere(int first, int second);
+
+
         static void Main(string[] args)
         {
 
@@ -15,14 +19,23 @@ namespace Task_2
 
             ShowArray(arr);
 
-            SortMaxElement(arr);
+            SortMaxElement(arr, (a, b) => a < b, (a, b) => a < b ? a : b);
+            ShowArray(arr);
+            SortMaxElement(arr, (a, b) => a > b, (a, b) => a > b ? a : b);
             ShowArray(arr);
 
-            SortMinElement(arr);
+
+            SortMinElement(arr, (a, b) => a < b, (a, b) => a < b ? a : b);
+            ShowArray(arr);
+            SortMinElement(arr, (a, b) => a > b, (a, b) => a < b ? a : b);
             ShowArray(arr);
 
-            SortMaxSum(arr);
+
+            SortMaxSum(arr, (a, b) => a < b);
             ShowArray(arr);
+            SortMaxSum(arr, (a, b) => a > b);
+            ShowArray(arr);
+
 
             Console.Read();
         }
@@ -35,7 +48,7 @@ namespace Task_2
         /// sortering for sum row
         /// </summary>
         /// <param name="array"></param>
-        public static void SortMaxSum(int[,] array)
+        public static void SortMaxSum(int[,] array, Compere comper)
         {
             for (int g = 0; g < array.GetLength(0) - 1; g++)
             {
@@ -50,7 +63,7 @@ namespace Task_2
                         sumBotton += array[i + 1, j];
                     }
 
-                    if (sumTop < sumBotton)
+                    if (wr(sumBotton, sumTop))
                     {
                         SwapRow(array, i);
                     }
@@ -58,11 +71,13 @@ namespace Task_2
             }
         }
 
+
+
         /// <summary>
         /// sorts by max element
         /// </summary>
         /// <param name="array">array</param>
-        public static void SortMinElement(int[,] array)
+        public static void SortMinElement(int[,] array, Compere comper, Switch del)
         {
             for (int g = 0; g < array.GetLength(0) - 1; g++)
             {
@@ -73,18 +88,11 @@ namespace Task_2
 
                     for (int j = 0; j < array.GetLength(1); j++)
                     {
-                        if (minTop < array[i, j])
-                        {
-                            minTop = array[i, j];
-                        }
-
-                        if (minBotton < array[i + 1, j])
-                        {
-                            minBotton = array[i + 1, j];
-                        }
+                        minTop = del(minTop, array[i, j]);
+                        minBotton = del(minBotton, array[i + 1, j]);
                     }
 
-                    if (minTop > minBotton)
+                    if (comper(minTop, minBotton))
                     {
                         SwapRow(array, i);
                     }
@@ -96,7 +104,7 @@ namespace Task_2
         /// sorts by max element
         /// </summary>
         /// <param name="array">Array</param>
-        public static void SortMaxElement(int[,] array)
+        public static void SortMaxElement(int[,] array, Compere comper, Switch del)
         {
             for (int g = 0; g < array.GetLength(0) - 1; g++)
             {
@@ -107,24 +115,20 @@ namespace Task_2
 
                     for (int j = 0; j < array.GetLength(1); j++)
                     {
-                        if (maxTop < array[i, j])
-                        {
-                            maxTop = array[i, j];
-                        }
-
-                        if (maxBotton < array[i + 1, j])
-                        {
-                            maxBotton = array[i + 1, j];
-                        }
+                        maxTop = del(maxTop, array[i, j]);
+                        maxBotton = del(maxTop, array[i+1, j]);                    
                     }
 
-                    if (maxTop < maxBotton)
+                    if (comper(maxBotton, maxTop))
                     {
-                        SwapRow(array, i);
+                       SwapRow(array, i);
                     }
                 }
             }
         }
+
+
+
 
         /// <summary>
         /// swap row in matrix
