@@ -19,6 +19,8 @@ namespace Module_6
         static void Main(string[] args)
         {
             CommonAreaAndPerimetr(10);
+          
+            Console.WriteLine();
             Console.Read();
         }
 
@@ -55,6 +57,7 @@ namespace Module_6
         static GeometricFigures ReturnFig(Figures fig)
         {
             Random rnd = new Random();
+
             switch (fig)
             {
                 case Figures.Circle:

@@ -16,9 +16,19 @@ namespace Module_6
         {
             sideA = sidea;
             sideB = sideb;
-            sideC = sidec;
-            
+            sideC = sidec;            
         }
+
+        /// <summary>
+        /// Create Triangle with random sides
+        /// </summary>
+        /// <returns></returns>
+        public override GeometricFigures Create()
+        {
+            Random rnd = new Random();
+            return new Triangle(rnd.Next(1, 5), rnd.Next(1, 5), rnd.Next(5, 10));
+        }
+
 
         /// <summary>
         /// Canculate the Perimetr of a Triangle

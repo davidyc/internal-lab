@@ -18,6 +18,17 @@ namespace Module_6
         }
 
         /// <summary>
+        /// Create Rectanngle with Randon side
+        /// </summary>
+        /// <returns></returns>
+        public override GeometricFigures Create()
+        {
+            Random rnd = new Random();
+            return new Rectangle(rnd.Next(1, 10), rnd.Next(1,10));
+        }
+
+
+        /// <summary>
         /// Canculate the Perimetr of a Rectangle
         /// </summary>
         /// <returns>Perimetr</returns>
@@ -35,5 +46,7 @@ namespace Module_6
          
             return shotSide * longSide;
         }
+
+      
     }
 }

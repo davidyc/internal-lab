@@ -12,6 +12,7 @@ namespace Module_6
     public abstract class GeometricFigures
     {
         public abstract double Area();
-        public abstract double Perimeter();   
+        public abstract double Perimeter();
+        public abstract GeometricFigures Create();
     }
 }
