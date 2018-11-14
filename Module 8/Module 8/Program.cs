@@ -15,6 +15,7 @@ namespace Module_8
                 Console.Write("Input numbers ->");
                 string x = Console.ReadLine();
                 int q;
+
                 ConvertToInt.MyParseToInt(x, out q);
                 Console.WriteLine(q+1);
             }

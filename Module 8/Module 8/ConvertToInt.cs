@@ -17,7 +17,7 @@ namespace Module_8
         {
             number = 0;
             bool isNegative = false;
-            int end = 0;
+            int end = 0; 
 
             List<int> ListNumeral = new List<int>();
             try
