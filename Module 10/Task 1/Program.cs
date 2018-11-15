@@ -12,13 +12,19 @@ namespace Task_1
         {
             Console.WriteLine("Hello World!");
 
-            int[] arr = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+            int[] arr = { 1, 2, 3, 4, 5 };
+
+            var list = arr.ToList();
+
+            Console.WriteLine(BinarySerachClass.GenericSearch(list, 100));
+
 
             ABC[] arr1 = { new ABC(1), new ABC(2), new ABC(3), new ABC(4), };
 
-            Console.WriteLine(BinarySerachClass.BinarySearch(arr1, new ABC(53), delegate(ABC x, ABC y)
+
+            Console.WriteLine(BinarySerachClass.BinarySearch(arr1, new ABC(111), delegate (ABC x, ABC y)
             {
-                if(x.Id > y.Id)
+                if (x.Id > y.Id)
                 {
                     return 1;
                 }
@@ -32,14 +38,11 @@ namespace Task_1
                 }
             }));
 
-            Console.WriteLine(BinarySerachClass.BinarySearch(arr, 8, (x, y) => x > y ? 1 : -1));
-
-
 
             Console.ReadKey();
         }        
 
-        public struct ABC
+        public class ABC
         {
             public int Id { get; set; }
 

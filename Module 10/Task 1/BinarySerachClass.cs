@@ -10,34 +10,53 @@ namespace Task_1
 {
     public class BinarySerachClass
     {
-        public static int BinarySearch<T>(T[] array, T searchElement, Func<T, T, int> comparer)
+        public static bool GenericSearch<T>(List<T> list, T item)
         {
-            int leFtElement = 0;
-            int rightlement = array.Length;
-            int mid;
+            int min = 0;
+            int max = list.Count - 1;
 
-          //  Array.Sort<T>(array);         
-           
-
-            while(leFtElement < rightlement)
+            while (min <= max)
             {
-                mid = leFtElement + (rightlement - leFtElement) / 2;
+                int mid = (min + max) / 2;
+                T midValue = list[mid];
 
-                if (comparer(searchElement, array[mid]) == 1)
-                {
-                    leFtElement = mid;
-                }
-                else if(comparer(searchElement, array[mid]) == -1)
-                {
-                    rightlement = mid;
-                }
+                int res = ((IComparable)(midValue)).CompareTo(item);
+
+                if (res == 0)
+                    return true;
+                else if (res == -1)
+                    min = mid + 1;
                 else
-                {
-                    return mid;
-                }               
+                    max = mid - 1;
             }
+            return false;
+        }
 
-            return -1;
+
+
+
+
+
+        public static bool BinarySearch<T>(T[] array, T searchElement, Func<T, T, int> comparer)
+        {
+            int min = 0;
+            int max = array.Length - 1;
+
+            while (min <= max)
+            {
+                int mid = (min + max) / 2;
+                T midValue = array[mid];
+
+                int res = comparer(searchElement, array[mid]);
+
+                if (res == 0)
+                    return true;
+                else if (res == -1)
+                    min = mid + 1;
+                else
+                    max = mid - 1;
+            }
+            return false;
         }
     }
 }
