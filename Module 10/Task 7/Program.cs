@@ -12,7 +12,7 @@ namespace Task_7
         {
             Console.WriteLine("Hello World!");
 
-            Console.WriteLine(PolishNatationCanculete("5 1 2 + 4 * + 3 - "));
+            Console.WriteLine(PolishNatationCanculete("5 1 2 + 4 * + 3 -"));
 
             Console.ReadKey();
         }
