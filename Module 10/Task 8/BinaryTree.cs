@@ -5,11 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Task_8
-{   
-        public class BinaryTree<T> where T : IComparable
-        {
-            public Node<T> root { get; set; } = null;
+{
+    public class BinaryTree<T> where T : IComparable
+    {
+        public Node<T> root { get; set; } = null;
 
+        /// <summary>
+        /// Add in BinaryTree 
+        /// </summary>
+        /// <param name="data">T type elemenrts</param>
         public void Insert(T data)
         {
             if (root == null)
@@ -30,7 +34,6 @@ namespace Task_8
                     }
                     current.right = new Node<T>(data);
                 }
-
                 else if (data.CompareTo(current.data) < 0)
                 {
                     if (current.left != null)
@@ -40,115 +43,139 @@ namespace Task_8
                     }
                     current.left = new Node<T>(data);
                 }
-
                 else
                 {
                     return;
                 }
-
             }
         }
 
-
+        /// <summary>
+        ///  Add in BinaryTree
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="node"></param>
         public void Insert(T data, Node<T> node)
+        {
+            if (data.CompareTo(node.data) > 0)
             {
-                if (data.CompareTo(node.data) > 0)
+                if (node.right == null)
                 {
-                    if (node.right == null)
-                    {
-                        node.right = new Node<T>(data);
-                        return;
-                    }
-
-                    Insert(data, node.right);
+                    node.right = new Node<T>(data);
+                    return;
                 }
-                else if (data.CompareTo(node.data) < 0)
-                {
-                    if (node.left == null)
-                    {
-                        node.left = new Node<T>(data);
-                        return;
-                    }
 
-                    Insert(data, node.left);                  
-                }
+                Insert(data, node.right);
             }
-                 
-           
-            public void InsertFromArray(T[] array)
+            else if (data.CompareTo(node.data) < 0)
             {
-                foreach (T t in array)
+                if (node.left == null)
                 {
-                    this.Insert(t);
-                }
-            }            
-
-            public int GetLevel(Node<T> node, int current = 1)
-            {
-                int right = 0;
-                int left = 0;
-
-                if (node.right != null)
-                {
-                    right = GetLevel(node.right, current + 1);
+                    node.left = new Node<T>(data);
+                    return;
                 }
 
-                if (node.left != null)
-                {
-                    left = GetLevel(node.right, current + 1);
-                }
-
-                if (right == 0 && left == 0) return current; 
-
-                else
-                {
-                    return right > left ? right : left;
-                }
-
+                Insert(data, node.left);
             }
-           
-            public void GetOnLevel(Node<T> node, int curLevel, int trgLevel, Queue<T> result)
-            {
-                if (curLevel == trgLevel)
-                {
-                    result.Enqueue(node.data);
-                }
-                else
-                {
-                    if (node.left != null)
-                    {
-                        GetOnLevel(node.left, curLevel + 1, trgLevel, result);
-                    }
-
-                    if (node.right != null)
-                    {
-                        GetOnLevel(node.right, curLevel + 1, trgLevel, result);
-                    }
-                }
-            }
-
-            public Node<T> FindByValue(T data, Node<T> node)
-            {
-                if (node == null) return null;
-
-                if (data.Equals(node.data))
-                {
-                    return node;
-                }
-
-                if (data.CompareTo(node.data) > 0)
-                {
-                    return FindByValue(data, node.right);
-                }
-                else if (data.CompareTo(node.data) < 0)
-                {
-                    return FindByValue(data, node.left);
-                }
-
-                else return null;
-            }
-
         }
+
+        /// <summary>
+        /// Add from array elements
+        /// </summary>
+        /// <param name="array"></param>
+        public void InsertFromArray(T[] array)
+        {
+            foreach (T t in array)
+            {
+                this.Insert(t);
+            }
+        }
+
+        /// <summary>
+        /// Implement three ways of traversing the tree: Inorder
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<T> Inorder()
+        {
+            if (root == null) yield break;
+
+            var stack = new Stack<Node<T>>();
+            var node = root;
+
+            while (stack.Count > 0 || node != null)
+            {
+                if (node == null)
+                {
+                    node = stack.Pop();
+                    yield return node.data;
+                    node = node.right;
+                }
+                else
+                {
+                    stack.Push(node);
+                    node = node.left
+;
+                }
+            }
+        }
+
+        /// <summary>
+        ///  Implement three ways of traversing the tree: Preorder
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<T> Preorder()
+        {
+            if (root == null) yield break;
+
+            var stack = new Stack<Node<T>>();
+            stack.Push(root);
+
+            while (stack.Count > 0)
+            {
+                var node = stack.Pop();
+                yield return node.data;
+                if (node.right != null) stack.Push(node.right);
+                if (node.left != null) stack.Push(node.left);
+            }
+        }
+
+        /// <summary>
+        ///  Implement three ways of traversing the tree: Postorder
+        /// </summary>
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<T> Postorder()
+        {
+            if (root == null) yield break;
+
+            var stack = new Stack<Node<T>>();
+            var node = root;
+
+            while (stack.Count > 0 || node != null)
+            {
+                if (node == null)
+                {
+                    node = stack.Pop();
+                    if (stack.Count > 0 && node.right == stack.Peek())
+                    {
+                        stack.Pop();
+                        stack.Push(node);
+                        node = node.right;
+                    }
+                    else { yield return node.data; node = null; }
+                }
+                else
+                {
+                    if (node.right != null) stack.Push(node.right);
+                    stack.Push(node);
+                    node = node.left;
+                }
+            }
+        }
+
+
+
+    }
 }
 
 

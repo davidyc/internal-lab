@@ -19,10 +19,29 @@ namespace Task_8
             bst.Insert(2);
             bst.Insert(21);
             bst.Insert(4, bst.root);
-            Console.WriteLine(bst.FindByValue(4, bst.root).data);
+
+            BinaryTree<int> bst2 = new BinaryTree<int>();
+            bst2.Insert(1);
+            bst2.Insert(3);
+            bst2.Insert(5);
+            bst2.Insert(2);
+            bst2.Insert(21);
+            bst2.Insert(4, bst.root);
+
+            bst2.Inorder();
+
+
+            BinaryTree<int> bst3 = new BinaryTree<int>();
+            bst3.Insert(1);
+            bst3.Insert(3);
+            bst3.Insert(5);
+            bst3.Insert(2);
+            bst3.Insert(21);
+            bst3.Insert(4, bst.root);
+
+            bst3.Postorder();
 
             Console.ReadKey();
-
         }
     }
 }
