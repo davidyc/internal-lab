@@ -11,32 +11,42 @@ namespace Module_11
     {
         static void Main(string[] args)
         {
-            //first data for write in file
-            //StudentTestInformation[] tests =
-            //{
-            //    new StudentTestInformation("Student 1", "Test 1", 100, DateTime.Now),
-            //    new StudentTestInformation("Student 2", "Test 1", 58, DateTime.Now),
-            //    new StudentTestInformation("Student 3", "Test 1", 72, DateTime.Now),
-            //    new StudentTestInformation("Student 1", "Test 2", 97, DateTime.Now),
-            //    new StudentTestInformation("Student 2", "Test 2", 59, DateTime.Now),
-            //    new StudentTestInformation("Student 3", "Test 2", 70, DateTime.Now),
-            //    new StudentTestInformation("Student 1", "Test 3", 63, DateTime.Now),
-            //    new StudentTestInformation("Student 2", "Test 3", 57, DateTime.Now),
-            //    new StudentTestInformation("Student 3", "Test 3", 71, DateTime.Now)
-            //};
+           
+            StudentTestInformation[] tests =
+            {
+                new StudentTestInformation("C", "Test 1", 69, DateTime.Now),
+                new StudentTestInformation("E", "Test 1", 58, DateTime.Now),
+                new StudentTestInformation("F", "Test 1", 72, DateTime.Now),
+                new StudentTestInformation("Z", "Test 2", 97, DateTime.Now),
+                new StudentTestInformation("A", "Test 2", 59, DateTime.Now),
+                new StudentTestInformation("B", "Test 2", 70, DateTime.Now),
+                new StudentTestInformation("X", "Test 3", 63, DateTime.Now),
+                new StudentTestInformation("Y", "Test 3", 57, DateTime.Now),
+                new StudentTestInformation("Q", "Test 3", 71, DateTime.Now)
+            };
+
             //WriteInBonaryFile(@"file.dat", tests);
-
-
-            var tests = ReadFromBinaryFile(@"file.dat");         
+            //var tests = ReadFromBinaryFile(@"file.dat");            
 
             BinarySearchTree<StudentTestInformation> binarySearchTree = new BinarySearchTree<StudentTestInformation>();
 
-            for (int i = 0; i < tests.Length; i++)
-            {
-                binarySearchTree.Insert(tests[i]);
-            }
+            binarySearchTree.InsertArray(tests);
 
-                        
+            var BinarytreeAfterWhere = binarySearchTree.WhereForBinaryTree(x => x.Score > 60);
+
+            var BinarytreeAfterOrderBy = binarySearchTree.OberByForBinaryTree(x => x.Name);
+
+            var BinarytreeAfterOrderByDes = binarySearchTree.OberByDescendingForBinaryTree(x => x.Name);
+
+
+
+            //foreach (var item in BinarytreeAfterOrderBy)
+            //{
+            //    Console.WriteLine(item.ToString());
+            //}
+
+
+
             Console.ReadLine();
         }
 
@@ -101,7 +111,5 @@ namespace Module_11
                 return tmp.ToArray();
             
         }
-
-
     }
 }

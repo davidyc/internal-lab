@@ -50,6 +50,103 @@ namespace Module_11
             }
         }
 
+        /// <summary>
+        /// Add in tree array elements
+        /// </summary>
+        /// <param name="arrays">array</param>
+        public void InsertArray(T[] arrays)
+        {
+            for (int i = 0; i < arrays.Length; i++)
+            {
+                Insert(arrays[i]);
+
+            }
+        }
+
+        /// <summary>
+        /// Implement three ways of traversing the tree: Inorder
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<T> Inorder()
+        {
+            if (root == null) yield break;
+
+            var stack = new Stack<Node<T>>();
+            var node = root;
+
+            while (stack.Count > 0 || node != null)
+            {
+                if (node == null)
+                {
+                    node = stack.Pop();
+                    yield return node.data;
+                    node = node.right;
+                }
+                else
+                {
+                    stack.Push(node);
+                    node = node.left
+;
+                }
+            }
+        }
+
+        /// <summary>
+        ///  Implement three ways of traversing the tree: Preorder
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<T> Preorder()
+        {
+            if (root == null) yield break;
+
+            var stack = new Stack<Node<T>>();
+            stack.Push(root);
+
+            while (stack.Count > 0)
+            {
+                var node = stack.Pop();
+                yield return node.data;
+                if (node.right != null) stack.Push(node.right);
+                if (node.left != null) stack.Push(node.left);
+            }
+        }
+
+        /// <summary>
+        ///  Implement three ways of traversing the tree: Postorder
+        /// </summary>
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<T> Postorder()
+        {
+            if (root == null) yield break;
+
+            var stack = new Stack<Node<T>>();
+            var node = root;
+
+            while (stack.Count > 0 || node != null)
+            {
+                if (node == null)
+                {
+                    node = stack.Pop();
+                    if (stack.Count > 0 && node.right == stack.Peek())
+                    {
+                        stack.Pop();
+                        stack.Push(node);
+                        node = node.right;
+                    }
+                    else { yield return node.data; node = null; }
+                }
+                else
+                {
+                    if (node.right != null) stack.Push(node.right);
+                    stack.Push(node);
+                    node = node.left;
+                }
+            }
+        }
+
+
+
 
 
     }

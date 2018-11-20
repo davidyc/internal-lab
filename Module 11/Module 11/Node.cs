@@ -8,7 +8,6 @@ namespace Module_11
 {
     public class Node<T> where T : IComparable
     {
-
         public Node(T data)
         {
             this.data = data;

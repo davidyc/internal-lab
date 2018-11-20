@@ -33,7 +33,7 @@ namespace Module_11
         /// <returns>string</returns>
         public override string ToString()
         {
-            return String.Format("Name = {0} Test ={1} Score = {2} Date = {3}", Name, TestName, Score, TestDate);
+            return String.Format("Name = {0} Test = {1} Score = {2} Date = {3}", Name, TestName, Score, TestDate);
         }
 
         /// <summary>
