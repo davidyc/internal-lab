@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Module_11
 {
-    public class BinarySearchTree<T> where T : IComparable
+    public class BinarySearchTree<T> : IEnumerable where T : IComparable
     {
         public Node<T> root { get; set; }
 
@@ -145,9 +146,29 @@ namespace Module_11
             }
         }
 
+        /// <summary>
+        /// GetEnumerator
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator GetEnumerator()
+        {
+            if (root.left != null)
+            {
+                foreach (var item in root.left)
+                {
+                    yield return item;
+                }
+            }
 
+            yield return this.root.data;
 
-
-
+            if (root.right != null)
+            {
+                foreach (var item in root.right)
+                {
+                    yield return item;
+                }
+            }
+        }
     }
 }

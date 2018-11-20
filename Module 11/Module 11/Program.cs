@@ -23,10 +23,7 @@ namespace Module_11
                 new StudentTestInformation("X", "Test 3", 63, DateTime.Now),
                 new StudentTestInformation("Y", "Test 3", 57, DateTime.Now),
                 new StudentTestInformation("Q", "Test 3", 71, DateTime.Now)
-            };
-
-            //WriteInBonaryFile(@"file.dat", tests);
-            //var tests = ReadFromBinaryFile(@"file.dat");            
+            };                  
 
             BinarySearchTree<StudentTestInformation> binarySearchTree = new BinarySearchTree<StudentTestInformation>();
 
@@ -34,18 +31,14 @@ namespace Module_11
 
             var BinarytreeAfterWhere = binarySearchTree.WhereForBinaryTree(x => x.Score > 60);
 
-            var BinarytreeAfterOrderBy = binarySearchTree.OberByForBinaryTree(x => x.Name);
+            //var BinarytreeAfterOrderBy = binarySearchTree.OberByForBinaryTree(x => x.Name);
 
-            var BinarytreeAfterOrderByDes = binarySearchTree.OberByDescendingForBinaryTree(x => x.Name);
+            //var BinarytreeAfterOrderByDes = binarySearchTree.OberByDescendingForBinaryTree(x => x.Name);
 
-
-
-            //foreach (var item in BinarytreeAfterOrderBy)
-            //{
-            //    Console.WriteLine(item.ToString());
-            //}
-
-
+            foreach (var item in BinarytreeAfterWhere)
+            {
+                Console.WriteLine(item.ToString());
+            }
 
             Console.ReadLine();
         }
