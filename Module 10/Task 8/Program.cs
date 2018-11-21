@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Task_8
 {
@@ -30,6 +31,12 @@ namespace Task_8
 
             bst2.Inorder();
 
+
+            FileStream f = new FileStream("", FileMode.Create);
+
+
+
+            f.Dispose();
 
             BinaryTree<int> bst3 = new BinaryTree<int>();
             bst3.Insert(1);
