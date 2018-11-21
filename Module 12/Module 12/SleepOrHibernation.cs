@@ -20,7 +20,7 @@ namespace Module_12
 
         public static void Hibernation()
         {
-            SetSuspendState(false, false, false);
+            SetSuspendState(true, false, false);
         }
     }
 

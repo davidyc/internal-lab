@@ -11,9 +11,7 @@ namespace Module_12
     { 
         static void Main(string[] args)
         {
-          
-
-
+            SleepOrHibernation.Hibernation();
         }
     }
 }
