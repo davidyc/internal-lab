@@ -44,48 +44,67 @@ namespace Task_1
 
             Console.WriteLine("Copy completed");
             return countBites;
-        }       
+        }
 
-        /// <summary>
-        /// Сopies the file using BufferStream
-        /// </summary>
-        /// <param name="path">target file</param>
-        /// <param name="newFilePath">new file path</param>
-        /// <returns>Count copied bites</returns>
-        public static ulong CopyFileWithUsingBufferStream(string path, string newFilePath)
+
+        public static ulong CopyFileWithUsingMemoryStreamWithStreamReader(string path, string newFilePath)
         {
-            ulong countBites = 0;
-            byte[] bytes;
-            BufferedStream bS;
+            ulong countBites = 0;    
 
             try
             {
-                using(FileStream file = new FileStream(path, FileMode.Open))
+                using (MemoryStream ms = new MemoryStream())
                 {
-                    bytes = new byte [file.Length];
-                    file.Read(array, 0, array.Length);
-                    bS = new BufferedStream(file);
-                    bS.Write(bytes, 0, bytes.Length);                     
+                    using (StreamReader file = new StreamReader(path))
+                    {
+                        string tmp = file.ReadToEnd();
+                        byte[] array = new byte[tmp.Length];
+                        for (int i = 0; i < tmp.Length; i++)
+                        {
+                            array[i] = Convert.ToByte(tmp[i]);
+                        }                       
+                        ms.Write(array, 0, array.Length);
+                    }    
+           
+                    using (StreamWriter file = new StreamWriter(newFilePath))
+                    {
+                        byte[] array = new byte[ms.Length];
+                        ms.Read(array, 0, (int)ms.Length);
+                        string tmp = ""; 
+
+                        for (int i = 0; i < array.Length; i++)
+                        {
+                            tmp += array[i].ToString();
+                        }
+
+                                                  
+
+                        file.Write(tmp, 0, array.Length);
+                        countBites = (ulong)array.Length;
+                    }
                 }
-
-                using (FileStream file = new FileStream(newFilePath, FileMode.Create))
-                {
-                  
-                }
-
-
-
-
             }
             catch (FileNotFoundException e)
             {
                 Console.WriteLine(e.Message);
                 return 0;
             }
-            Console.WriteLine("Copy Completed");
+
+            Console.WriteLine("Copy completed");
             return countBites;
-        }   
-        // task 5
+        }
+
+
+
+
+
+
+
+
+
+
+
+        // task 5        
         /// <summary>
         /// Сopies the file using MemoryStream
         /// </summary>
