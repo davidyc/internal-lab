@@ -11,12 +11,7 @@ namespace Module_12
     { 
         static void Main(string[] args)
         {
-            PowerInformaion.LastSleepTime();
-            PowerInformaion.LastWakeTime();
-            PowerInformaion.SystemBatteryState();
-            PowerInformaion.SystemPowerInformatio();
-
-            Console.Read();
+            SleepOrHibernation.Hibernation();
         }
     }
 }
