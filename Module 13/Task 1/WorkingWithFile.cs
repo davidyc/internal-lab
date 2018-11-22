@@ -56,10 +56,22 @@ namespace Task_1
         {
             ulong countBites = 0;
             byte[] bytes;
+            BufferedStream bS;
 
             try
             {
+                using(FileStream file = new FileStream(path, FileMode.Open))
+                {
+                    bytes = new byte [file.Length];
+                    file.Read(array, 0, array.Length);
+                    bS = new BufferedStream(file);
+                    bS.Write(bytes, 0, bytes.Length);                     
+                }
 
+                using (FileStream file = new FileStream(newFilePath, FileMode.Create))
+                {
+                  
+                }
 
 
 
@@ -70,15 +82,9 @@ namespace Task_1
                 Console.WriteLine(e.Message);
                 return 0;
             }
-
-
             Console.WriteLine("Copy Completed");
             return countBites;
         }   
-
-
-
-
         // task 5
         /// <summary>
         /// Сopies the file using MemoryStream
