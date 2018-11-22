@@ -27,11 +27,7 @@ namespace Task_1
                 using (FileStream fstream = File.OpenRead(path))
                 {
                     array = new byte[fstream.Length];
-
                     fstream.Read(array, 0, array.Length);
-
-                    string textFromFile = System.Text.Encoding.Default.GetString(array);
-
                 }
 
                 using (FileStream fstream = File.Create(newFilePath))
@@ -48,9 +44,7 @@ namespace Task_1
 
             Console.WriteLine("Copy completed");
             return countBites;
-        }
-
-
+        }       
 
         /// <summary>
         /// Сopies the file using BufferStream
@@ -80,9 +74,7 @@ namespace Task_1
 
             Console.WriteLine("Copy Completed");
             return countBites;
-        }
-
-
+        }   
 
 
 
@@ -130,10 +122,89 @@ namespace Task_1
             Console.WriteLine("Copy Completed");
             return countBites;
         }
+        // task 6
+        /// <summary>
+        /// Сopies on rols
+        /// </summary>
+        /// <param name="path">target file</param>
+        /// <param name="newFilePath">new file path</param>
+        /// <returns>Count copied bites</returns>
+        public static int CopyOnRolls(string path, string newFilePath)
+        {
+            int countRolls = 0;
+            List<string> ListString = new List<string>();
 
-       
+            try
+            {
+                using (StreamReader file = new StreamReader(path, Encoding.Default))
+                {
+                    string line;
+                    while ((line = file.ReadLine()) != null)
+                    {
+                        ListString.Add(line);
+                    }
+                }
 
-        
+                using (StreamWriter file = new StreamWriter(path))
+                {
+
+                    using (StreamWriter sw = new StreamWriter(newFilePath))
+                    {
+                        for (int i = 0; i < ListString.Count; i++)
+                        {
+                            sw.WriteLine(ListString[i]);
+                        }
+                        countRolls = ListString.Count;
+                    }
+                }
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine(e.Message);
+                return 0;
+            }
+
+            Console.WriteLine("Copy completed");
+            return countRolls;
+        }
+        //task 7
+        /// <summary>
+        /// Equesl 2 files
+        /// </summary>
+        /// <param name="path">target file</param>
+        /// <param name="newFilePath">new file path</param>
+        /// <returns>true or false</returns>
+        public static bool EquealTwoFile(string path, string newFilePath)
+        {            
+            byte[] array;
+            byte[] arraySecond;
+
+            try
+            {
+                using (FileStream fstream = File.OpenRead(path))
+                {
+                    array = new byte[fstream.Length];
+                    fstream.Read(array, 0, array.Length);    
+                }
+                using (FileStream fstream = File.OpenRead(newFilePath))
+                {
+                    arraySecond = new byte[fstream.Length];
+                    fstream.Read(arraySecond, 0, arraySecond.Length);
+                }
+
+                return array.SequenceEqual<byte>(arraySecond);
+
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }     
+        }
+
+
+
+
 
 
 
