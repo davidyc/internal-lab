@@ -38,13 +38,13 @@ namespace Module_12
 
         public static void LastSleepTime()
         {
-            SYSTEM_POWER_INFORMATION spi;         
+            SYSTEM_POWER_INFORMATION spi;
             uint retval = CallNtPowerInformation(15, IntPtr.Zero, 0, out spi,
                 Marshal.SizeOf(typeof(SYSTEM_POWER_INFORMATION))
             );
             if (retval == STATUS_SUCCESS)
                 Console.WriteLine(spi.TimeRemaining);
-    
+
         }
 
         public static void LastWakeTime()
@@ -64,7 +64,7 @@ namespace Module_12
                 Marshal.SizeOf(typeof(SYSTEM_POWER_INFORMATION))
             );
             if (retval == STATUS_SUCCESS)
-                Console.WriteLine(spi.TimeRemaining);          
+                Console.WriteLine(spi.TimeRemaining);
         }
 
         public static void SystemPowerInformatio()
@@ -76,11 +76,8 @@ namespace Module_12
             if (retval == STATUS_SUCCESS)
                 Console.WriteLine(spi.TimeRemaining);
         }
-
-
-
     }
-
-
 }
+
+
 

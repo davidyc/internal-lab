@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1380D59B-F850-4CDE-841F-E9C4526EA4E8}</ProjectGuid>
+    <ProjectGuid>{5B527349-9A30-4DEF-A1E7-FCB9B9377A53}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Module_12</RootNamespace>
-    <AssemblyName>Module 12</AssemblyName>
+    <RootNamespace>Task_1</RootNamespace>
+    <AssemblyName>Task 1</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,10 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PowerInformation.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SleepOrHibernation.cs" />
+    <Compile Include="WorkingWithFile.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
