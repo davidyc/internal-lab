@@ -10,7 +10,6 @@ namespace Task_1
     class WorkingWithFile
     {
 
-        // task 1
         /// <summary>
         /// Сopies the file using filestream
         /// </summary>
@@ -47,42 +46,42 @@ namespace Task_1
         }
 
 
+        /// <summary>
+        /// Сopies the file using StreamReader for Write and Memory for buffer
+        /// </summary>
+        /// <param name="path">target file</param>
+        /// <param name="newFilePath">new file path</param>
+        /// <returns>Count copied bites</returns>
         public static ulong CopyFileWithUsingMemoryStreamWithStreamReader(string path, string newFilePath)
         {
-            ulong countBites = 0;    
-
+            ulong countBites = 0;
+            byte[] bytes;
             try
             {
-                using (MemoryStream ms = new MemoryStream())
+                MemoryStream mS = new MemoryStream();
+                
+                using (StreamReader fileForRead = new StreamReader(path))
                 {
-                    using (StreamReader file = new StreamReader(path))
+                    string line = null;
+                    StringBuilder tmp = new StringBuilder();
+
+                    while ((line = fileForRead.ReadLine()) != null)
                     {
-                        string tmp = file.ReadToEnd();
-                        byte[] array = new byte[tmp.Length];
-                        for (int i = 0; i < tmp.Length; i++)
-                        {
-                            array[i] = Convert.ToByte(tmp[i]);
-                        }                       
-                        ms.Write(array, 0, array.Length);
-                    }    
-           
-                    using (StreamWriter file = new StreamWriter(newFilePath))
-                    {
-                        byte[] array = new byte[ms.Length];
-                        ms.Read(array, 0, (int)ms.Length);
-                        string tmp = ""; 
-
-                        for (int i = 0; i < array.Length; i++)
-                        {
-                            tmp += array[i].ToString();
-                        }
-
-                                                  
-
-                        file.Write(tmp, 0, array.Length);
-                        countBites = (ulong)array.Length;
+                        tmp.Append(line + "\n ");
                     }
+
+                    bytes = Encoding.ASCII.GetBytes(tmp.ToString());
+                    mS.Write(bytes, 0, tmp.Length);
                 }
+
+                 using (FileStream file = File.Create(newFilePath))
+                 {
+                    mS.Write(bytes, 0, (int)mS.Length);
+                    file.Write(bytes, 0, bytes.Length);
+
+                    countBites = (ulong)bytes.Length;
+                }
+                 
             }
             catch (FileNotFoundException e)
             {
@@ -95,16 +94,47 @@ namespace Task_1
         }
 
 
+        /// <summary>
+        /// Сopies the file using buufrredStream
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="newFilePath"></param>
+        /// <returns></returns>
+        public static ulong CopyFileWithUsingBufferedStream(string path, string newFilePath)
+        {
+            ulong countBites = 0;
 
+            try
+            {
+                Stream inputStream = File.OpenRead(path);
+                Stream outputStream = File.OpenWrite(newFilePath);
+                BufferedStream bufferedInput = new BufferedStream(inputStream);
+                BufferedStream bufferedOutput = new BufferedStream(outputStream);
+                byte[] buffer = new Byte[bufferedInput.Length];
+                int bytesRead;
 
+                while ((bytesRead =
+                bufferedInput.Read(buffer, 0, (int)bufferedInput.Length)) > 0)
+                {
+                    bufferedOutput.Write(buffer, 0, bytesRead);
+                }
 
+                countBites = (ulong)bufferedInput.Length;
 
+                bufferedOutput.Flush();
+                bufferedInput.Close();
+                bufferedOutput.Close();
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine(e.Message);
+                return 0;
+            }
 
+            Console.WriteLine("Copy completed");
+            return countBites;
+        }
 
-
-
-
-        // task 5        
         /// <summary>
         /// Сopies the file using MemoryStream
         /// </summary>
@@ -133,6 +163,7 @@ namespace Task_1
                     {
                         ms.Read(bytes, 0, (int)ms.Length);
                         file.Write(bytes, 0, bytes.Length);
+
                         countBites = (ulong)bytes.Length;                      
                     }
                 }                     
@@ -147,7 +178,7 @@ namespace Task_1
             Console.WriteLine("Copy Completed");
             return countBites;
         }
-        // task 6
+     
         /// <summary>
         /// Сopies on rols
         /// </summary>
@@ -192,7 +223,7 @@ namespace Task_1
             Console.WriteLine("Copy completed");
             return countRolls;
         }
-        //task 7
+   
         /// <summary>
         /// Equesl 2 files
         /// </summary>
