@@ -10,13 +10,17 @@ namespace Task_1
     {
         static void Main(string[] args)
         {
-             Console.WriteLine(WorkingWithFile.CopyFileWithUsingMemoryStreamWithStreamReader("test.txt", "test1.txt"));
-            //Console.WriteLine(WorkingWithFile.CopyFileWithUsingBufferedStream("test.txt", "test1.txt"));
-            //Console.WriteLine(WorkingWithFile.CopyFileWithUsingMemoryStream("test.txt", "test1.txt"));
-            //Console.WriteLine(WorkingWithFile.CopyFileWithUsingFileStream("0.pptx", "1.pptx"));
-            // Console.WriteLine(WorkingWithFile.CopyFileWithUsingMemoryStream("0.pptx", "1.pptx"));
-            // Console.WriteLine(WorkingWithFile.EquealTwoFile("tes t.txt","test1.txt"));
-            // Console.WriteLine(WorkingWithFile.CopyOnRolls("test.txt", "test1.txt"));
+            Console.WriteLine(WorkingWithFile.CopyFileWithUsingFileStream("test.txt", "CopyFileWithUsingFileStream.txt"));
+            Console.WriteLine(WorkingWithFile.CopyFileWithUsingBufferedStream("test.txt", "CopyFileWithUsingBufferedStream.txt"));
+            Console.WriteLine(WorkingWithFile.CopyFileWithUsingMemoryStream("test.txt", "CopyFileWithUsingMemoryStream.txt"));
+            Console.WriteLine(WorkingWithFile.CopyFileWithUsingMemoryStreamWithStreamReader("test.txt", "CopyFileWithUsingMemoryStreamWithStreamReader.txt"));
+            Console.WriteLine(WorkingWithFile.CopyOnRolls("test.txt", "CopyOnRolls.txt"));
+
+
+
+
+
+
             Console.Read();
         }
     }

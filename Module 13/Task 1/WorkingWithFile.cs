@@ -67,7 +67,7 @@ namespace Task_1
 
                     while ((line = fileForRead.ReadLine()) != null)
                     {
-                        tmp.Append(line + "\n ");
+                        tmp.Append(line + "\n");
                     }
 
                     bytes = Encoding.ASCII.GetBytes(tmp.ToString());
@@ -203,7 +203,6 @@ namespace Task_1
 
                 using (StreamWriter file = new StreamWriter(path))
                 {
-
                     using (StreamWriter sw = new StreamWriter(newFilePath))
                     {
                         for (int i = 0; i < ListString.Count; i++)
