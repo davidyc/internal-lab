@@ -16,11 +16,6 @@ namespace Task_1
             Console.WriteLine(WorkingWithFile.CopyFileWithUsingMemoryStreamWithStreamReader("test.txt", "CopyFileWithUsingMemoryStreamWithStreamReader.txt"));
             Console.WriteLine(WorkingWithFile.CopyOnRolls("test.txt", "CopyOnRolls.txt"));
 
-
-
-
-
-
             Console.Read();
         }
     }

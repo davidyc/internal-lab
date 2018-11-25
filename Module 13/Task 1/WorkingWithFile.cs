@@ -47,7 +47,7 @@ namespace Task_1
 
 
         /// <summary>
-        /// Сopies the file using StreamReader for Write and Memory for buffer
+        /// Сopies the file using StreamReader for Write and Memory for buffer 
         /// </summary>
         /// <param name="path">target file</param>
         /// <param name="newFilePath">new file path</param>
