@@ -97,19 +97,34 @@ namespace XML
 
             //xDoc.Save("File1.xml");
 
+            // All elements
+            //foreach (XElement item in xDoc.Element("users").Elements("user"))
+            //{
+            //    XAttribute at = item.Attribute("name");
+            //    XElement el = item.Element("company");
+            //    XElement age = item.Element("age");
 
-            foreach (XElement item in xDoc.Element("users").Elements("user"))
-            {
-                XAttribute at = item.Attribute("name");
-                XElement el = item.Element("company");
-                XElement age = item.Element("age");
-
-                Console.WriteLine(at + " " + el + " " + age);
-            }
+            //    Console.WriteLine(at.Value + " " + el.Value + " " + age.Value);
+            //}
 
 
+            ////Edit information
+            //XElement xEl = xDoc.Element("users");
+            //foreach(XElement xE in xEl.Elements("user"))
+            //{
+            //    if(xE.Attribute("name").Value == "Segrey Davydov2")
+            //    {
+            //        xE.Attribute("name").Value = "Kirill Boreiko";
+            //        xE.Element("company").Value = "EPAM";
+            //        xE.Element("age").Value = "21";
+            //    }
+            //}
 
-            Console.Read();
+            //xDoc.Save("File1.xml");
+
+
+
+            //Console.Read();
 
             }
         }
