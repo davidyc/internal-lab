@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.IO;
 
 namespace Module_14
 {
-    class Book
+    class Book : IWorkingWithXML
     {
         public string Title { set; get; }
         public int Year { set; get; }
@@ -16,14 +17,25 @@ namespace Module_14
         public int Price { set; get; }
         public int Pages { set; get; }
                
-
+        /// <summary>
+        ///Write in XMl
+        /// </summary>
+        /// <param name="path">path for file</param>
         public void WriteTOXml(string path)
         {
-            XDocument xdoc = XDocument.Load(path);
-            
-          
-            XElement newBook = new XElement("book");
-           
+            XDocument xdoc;
+            try
+            {
+              xdoc = XDocument.Load(path);
+            }
+            catch (FileNotFoundException e)
+            {
+                xdoc = new XDocument();
+                XElement xElement = new XElement("books", "");
+                xdoc.Add(xElement);
+            }
+
+            XElement newBook = new XElement("book");           
             
             XElement titleEl= new XElement("title", Title);
             XElement authorEl= new XElement("author", Author);
@@ -50,5 +62,19 @@ namespace Module_14
             books.Add(newBook);
             xdoc.Save(path);
         }
+
+        /// <summary>
+        /// Read form XML file
+        /// </summary>
+        /// <param name="path">path</param>
+        /// <returns>XElements</returns>
+        public XElement ReadFromXml(string path)
+        {
+            XDocument xdoc = XDocument.Load(path);
+            XElement root = xdoc.Element("books");
+            return root;
+        }
+
+
     }
 }
