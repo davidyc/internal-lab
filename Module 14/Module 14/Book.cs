@@ -71,10 +71,33 @@ namespace Module_14
         public XElement ReadFromXml(string path)
         {
             XDocument xdoc = XDocument.Load(path);
-            XElement root = xdoc.Element("books");
+            XElement root = xdoc.Root;
             return root;
         }
 
+        /// <summary>
+        /// Convert XML book to class book list
+        /// </summary>
+        /// <param name="xel">element</param>
+        /// <returns>List books</returns>
+        public static List<Book> ConvertXelementToListBooks(XElement xel)
+        {
+            List<Book> listBook = new List<Book>();
+            foreach (XElement item in xel.Elements("book"))
+            {            
+                Book tmp = new Book();
+                tmp.Title = item.Element("title").Value;
+                tmp.Author = item.Element("author").Value;
+                tmp.Year = Convert.ToInt32(item.Element("year").Value);
+                tmp.Edition = item.Element("edition").Value;
+                tmp.Pages = Convert.ToInt32(item.Element("edition").Attribute("pages").Value);
+                tmp.Price = Convert.ToInt32(item.Element("edition").Attribute("price").Value);
 
+                listBook.Add(tmp);
+             }
+
+
+            return listBook;
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace Module_14
     interface IWorkingWithXML
     {
         void WriteTOXml(string path);
-        XElement ReadFromXml(string path);
+        XElement ReadFromXml(string path);    
 
     }
 }
