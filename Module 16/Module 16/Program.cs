@@ -11,12 +11,13 @@ namespace Module_16
         static void Main(string[] args)
         {
             DiagonalMatrix<int> x = new DiagonalMatrix<int>(2, 2);
-            x.matrix[0, 0] = 1;
-            x.matrix[0, 1] = 0;
-            x.matrix[1, 0] = 0;
-            x.matrix[1, 1] = 1;
+         
 
-           
+            x.Show();
+            x.ChangeValue(0, 0, 10);
+            x.Show();
+
+        
             
             Console.WriteLine(x.IsDiagonalMatrix());
          

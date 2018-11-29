@@ -9,10 +9,10 @@ namespace Module_16
 {
     abstract class Matrix<T> : IEqualityComparer where T : struct
     {
-        public T[,] matrix;
+        protected T[,] matrix;
         protected int rows;
-        protected int cols;       
-        public event Func<string> Say;
+        protected int cols;
+        protected event Action Say;     
 
         public Matrix(int rows, int cols)
         {
@@ -20,8 +20,22 @@ namespace Module_16
             this.rows = rows;
             matrix = new T[rows, cols];
         }
-                 
-        
+
+        public bool ChangeValue(int row, int col, T value)
+        {
+            if (row >= rows || col >= cols)
+            {
+                return false;
+            }
+
+            matrix[row, col] = value;
+            if (Say != null)
+            {
+                Say();
+            }
+
+            return true;    
+        }
 
 
         /// <summary>
@@ -66,19 +80,18 @@ namespace Module_16
         {
             return obj.GetHashCode();
         }
-
         
 
-        //public void Show()
-        //{
-        //    for (int i = 0; i < rows; i++)
-        //    {
-        //        for (int j = 0; j < cols; j++)
-        //        {
-        //            Console.Write(matrix[i, j]);
-        //        }
-        //        Console.WriteLine();
-        //    }
-        //}
+        public void Show()
+        {
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    Console.Write(matrix[i, j]);
+                }
+                Console.WriteLine();
+            }
+        }
     }
 }

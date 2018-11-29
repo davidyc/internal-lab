@@ -10,8 +10,9 @@ namespace Module_16
     {
         public DiagonalMatrix(int rows, int cols) : base(rows, cols)
         {
-
+            Say += () => Console.WriteLine("Value was changed");
         }
+       
 
         public bool IsDiagonalMatrix()
         {

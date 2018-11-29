@@ -10,7 +10,7 @@ namespace Module_16
     {
         public SymmetricMatrix(int rows, int cols) : base(rows, cols)
         {
-
+            Say += () => Console.WriteLine("Value was changed");
         }
 
         /// <summary>
