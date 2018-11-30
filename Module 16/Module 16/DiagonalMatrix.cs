@@ -13,7 +13,10 @@ namespace Module_16
             Say += () => Console.WriteLine("Value was changed");
         }
        
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public bool IsDiagonalMatrix()
         {
             if (!IsSqueralMatrix())

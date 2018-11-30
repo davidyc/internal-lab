@@ -36,8 +36,8 @@ namespace Module_16
 
             return true;    
         }
-
-
+        
+        
         /// <summary>
         /// return trans matrix
         /// </summary>
@@ -80,7 +80,29 @@ namespace Module_16
         {
             return obj.GetHashCode();
         }
-        
+
+        public T[,] Add (T[,] f, T[,] s)
+        {
+            T[,] x = new T[3,3];
+            for (int i = 0; i < 3; i++)
+            {
+                for (int g = 0; g < 3; g++)
+                {
+                   // x[i, g] = f[i, g] + f[i,g];
+                }
+            }
+
+            return x;
+        }
+      
+
+        public static Matrix<T> operator +(Matrix<T> first, Matrix<T> second)
+        {
+            //first.matrix[1, 1] += second.matrix[0, 0];
+
+            return first;
+        }
+       
 
         public void Show()
         {
