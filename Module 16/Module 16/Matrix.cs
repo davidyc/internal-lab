@@ -80,27 +80,29 @@ namespace Module_16
         {
             return obj.GetHashCode();
         }
-
-        public T[,] Add (T[,] f, T[,] s)
-        {
-            T[,] x = new T[3,3];
-            for (int i = 0; i < 3; i++)
-            {
-                for (int g = 0; g < 3; g++)
-                {
-                   // x[i, g] = f[i, g] + f[i,g];
-                }
-            }
-
-            return x;
-        }
       
-
-        public static Matrix<T> operator +(Matrix<T> first, Matrix<T> second)
+        /// <summary>
+        /// Add two matrix
+        /// </summary>
+        /// <param name="matrix"></param>
+        /// <param name="func"></param>
+        /// <returns></returns>
+        public Matrix<T> Add(Matrix<T> matrix, Func<T, T, T> func)
         {
-            //first.matrix[1, 1] += second.matrix[0, 0];
+            if(this.rows == matrix.rows && this.cols == matrix.cols)
+            {
+                for (int i = 0; i < rows; i++)
+                {
+                    for (int g = 0; g < cols; g++)
+                    {
+                        matrix.matrix[i, g] = func(this.matrix[i, g], matrix.matrix[i, g]);
+                    }
+                }
 
-            return first;
+                return matrix;
+            }
+            return null;
+           
         }
        
 

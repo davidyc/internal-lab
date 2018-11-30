@@ -11,15 +11,21 @@ namespace Module_16
         static void Main(string[] args)
         {
             DiagonalMatrix<int> x = new DiagonalMatrix<int>(2, 2);
-         
+            DiagonalMatrix<int> x2 = new DiagonalMatrix<int>(2, 2);
+
 
             x.Show();
-            x.ChangeValue(0, 0, 10);
-            x.Show();
+            x.ChangeValue(1, 1, 10);
+            x2.ChangeValue(1, 1, 10);
+
+            x2 = (DiagonalMatrix<int>)x.Add(x2, (z, y) => z+y);
+
+            x2.Show();
+            
 
         
             
-            Console.WriteLine(x.IsDiagonalMatrix());
+           
          
             Console.Read();
         }
