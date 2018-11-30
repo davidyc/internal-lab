@@ -4,29 +4,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1
+using System.Threading;
+class Program
 {
-    public interface IArithmetic<T>
+    static void Main(string[] args)
     {
-        T Add(T a, T b);
-        T Multiply(T a, T b);
-        T Subtract(T a, T b);
-        T Divide(T a, T b);
-    }
-    class S<Data> where Data : IArithmetic<Data>
-    {
-        public T Add(T a, T b) { return a + b; }
-        public T Multiply(T a, T b) { return a * b; }
-        public T Subtract(T a, T b) { return a - b; }
-        public T Divide(T a, T b) { return a / b; }
-    }
-    class Program
-    {
-        static void Main()
+        
+            int number = 4;
+            // создаем новый поток
+            Thread myThread = new Thread(new ParameterizedThreadStart(Count));
+            myThread.Start(number);
+
+            for (int i = 1; i < 9; i++)
+            {
+                Console.WriteLine("Главный поток:");
+                Console.WriteLine(i * i);
+                Thread.Sleep(300);
+            }
+
+            Console.ReadLine();
+        }
+
+        public static void Count(object x)
         {
-            S<int> XS = new S<int>();
-            Console.WriteLine(XS.Add(4, 9));
-            Console.ReadKey();
+            for (int i = 1; i < 9; i++)
+            {
+                int n = (int)x;
+
+                Console.WriteLine("Второй поток:");
+                Console.WriteLine(i * n);
+                Thread.Sleep(400);
+            }
         }
     }
-}
