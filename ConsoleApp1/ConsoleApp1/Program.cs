@@ -1,39 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
-using System.Threading;
-class Program
+namespace HelloApp
 {
-    static void Main(string[] args)
+    class Program
     {
-        
-            int number = 4;
-            // создаем новый поток
-            Thread myThread = new Thread(new ParameterizedThreadStart(Count));
-            myThread.Start(number);
-
-            for (int i = 1; i < 9; i++)
+        static void Factorial()
+        {
+            int result = 1;
+            for (int i = 1; i <= 6; i++)
             {
-                Console.WriteLine("Главный поток:");
-                Console.WriteLine(i * i);
-                Thread.Sleep(300);
+                result *= i;
             }
-
-            Console.ReadLine();
+            Thread.Sleep(8000);
+            Console.WriteLine($"Факториал равен {result}");
+        }
+        // определение асинхронного метода
+        static async void FactorialAsync()
+        {
+            Console.WriteLine("Начало метода FactorialAsync"); // выполняется синхронно
+            await Task.Run(Factorial);                         // выполняется асинхронно
+            Console.WriteLine("Конец метода FactorialAsync");  // выполняется синхронно
         }
 
-        public static void Count(object x)
+        static void Main(string[] args)
         {
-            for (int i = 1; i < 9; i++)
-            {
-                int n = (int)x;
+            FactorialAsync();   // вызов асинхронного метода
 
-                Console.WriteLine("Второй поток:");
-                Console.WriteLine(i * n);
-                Thread.Sleep(400);
-            }
+            Console.WriteLine("Введите число: ");
+            int n = Int32.Parse(Console.ReadLine());
+            Console.WriteLine($"Квадрат числа равен {n * n}");
+
+            Console.Read();
         }
     }
+}
