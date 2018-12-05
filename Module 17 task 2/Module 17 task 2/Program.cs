@@ -15,17 +15,30 @@ namespace Module_17_task_2
             Persons repo = new Persons();
 
             repo.Show();
-            repo.CreateAsync("Sergey", "Davydov", 27);
+            Console.WriteLine();
 
+            repo.CreateAsync("Sergey", "Davydov", 27);
+            repo.CreateAsync("Sergey", "Davydov", 27);
+            repo.CreateAsync("Sergey", "Davydov", 27).Wait();
+          
             //Thread.Sleep(1000);
             repo.Show();
-
-            HttpClient aa = new HttpClient();
-
-            
+            Console.WriteLine();
+                                    
             repo.DeleteAsync(1).Wait();
-          //Thread.Sleep(1000);
+           //Thread.Sleep(1000);
             repo.Show();
+
+            Console.WriteLine();
+            repo.ReadAsync(5);
+            //Thread.Sleep(1000);
+            Console.WriteLine();
+
+            repo.UpdateAsync(5, "SERGEY").Wait();     
+            Console.WriteLine();
+            repo.Show();
+
+
 
             Console.Read();
         }
