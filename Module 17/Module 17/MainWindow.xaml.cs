@@ -43,10 +43,20 @@ namespace Module_17
 
             lock (locker)
             {
-                image.DownloadFile(url, count + "." + fileExept);                
+               image.DownloadFile(url, count + "." + fileExept);                
             }
            
         }
+
+
+      
+        // использовать таски вместо потока ограничить колиество исполняемых потоков
+        // скачаневание сделать асинхроным
+        // ограниччить количесто
+        // конслейшен токен прерывание тасок
+              
+    
+
 
         private void StartDownload()
         {
@@ -59,7 +69,6 @@ namespace Module_17
                 }
 
                 prog.Value = i+1;
-
 
                 Thread newThread = new Thread(DownloadImage);
                 newThread.Start(textBoxes[i].Text);
