@@ -33,34 +33,26 @@ namespace Module_17
             count = 0;
         }   
 
-        private async Task DownloadImage(object URL)
+        private void DownloadImage(object URL, string name)
         {
             WebClient image = new WebClient();
 
             string url = URL.ToString();
-            string fileExept = url.Split('.').Last();
-
-             await image.DownloadFile(url, count + "." + fileExept);          
-            lock (locker)
-            {
-                    
-            }
-           
+            string fileExept = url.Split('.').Last();             
+            
+            image.DownloadFileTaskAsync(url, name +"." + fileExept);    
         }
-
-
-      
+              
         // использовать таски вместо потока ограничить колиество исполняемых потоков
         // скачаневание сделать асинхроным
         // ограниччить количесто
         // конслейшен токен прерывание тасок
-              
-    
-
-
+             
         private void StartDownload()
         {
             prog.Maximum = textBoxes.Count;
+            Task[] arr = new Task[textBoxes.Count];
+
             for (int i = 0; i < textBoxes.Count; i++)
             {
                 if(cancel == true)
@@ -69,11 +61,14 @@ namespace Module_17
                 }
 
                 prog.Value = i+1;
-
-                Task task = new Task(DownloadImage(""));
-               // newThread.Start(textBoxes[i].Text);
+                
+                arr[i] = Task.Run(()
+                    =>DownloadImage(textBoxes[i], i.ToString()));          
                 count = i;
             }
+
+            //foreach (var t in arr)
+            //    t.Start();
 
             MessageBox.Show("Done");
             EndDownload();
