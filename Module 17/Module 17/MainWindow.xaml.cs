@@ -33,17 +33,17 @@ namespace Module_17
             count = 0;
         }   
 
-        private void DownloadImage(object URL)
+        private async Task DownloadImage(object URL)
         {
             WebClient image = new WebClient();
 
             string url = URL.ToString();
             string fileExept = url.Split('.').Last();
 
-
+             await image.DownloadFile(url, count + "." + fileExept);          
             lock (locker)
             {
-               image.DownloadFile(url, count + "." + fileExept);                
+                    
             }
            
         }
@@ -70,8 +70,8 @@ namespace Module_17
 
                 prog.Value = i+1;
 
-                Thread newThread = new Thread(DownloadImage);
-                newThread.Start(textBoxes[i].Text);
+                Task task = new Task(DownloadImage(""));
+               // newThread.Start(textBoxes[i].Text);
                 count = i;
             }
 
