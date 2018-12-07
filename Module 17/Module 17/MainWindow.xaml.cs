@@ -21,66 +21,77 @@ namespace Module_17
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {        
-        int count;
+    {             
         List<TextBox> textBoxes = new List<TextBox>();
-        static object locker = new object();
-        bool cancel = false;
+        Semaphore sm = new Semaphore(3, 3);
+        CancellationTokenSource tokenSource = new CancellationTokenSource();
+        CancellationToken ct;
+
+
 
         public MainWindow()
         {
             InitializeComponent();
-            count = 0;
+            Download.IsEnabled = false;            
+            ct = tokenSource.Token;
         }   
 
-        private void DownloadImage(object URL, string name)
+        private async Task DownloadImage(string url)
         {
-            WebClient image = new WebClient();
-
-            string url = URL.ToString();
-            string fileExept = url.Split('.').Last();             
-            
-            image.DownloadFileTaskAsync(url, name +"." + fileExept);    
+           WebClient image = new WebClient();
+           string fileExept = url.Split('.').Last();
+           Random rnd = new Random();
+           sm.WaitOne();
+           await image.DownloadFileTaskAsync(url, rnd.Next() + "." + fileExept);
+           sm.Release();
         }
-              
-        // использовать таски вместо потока ограничить колиество исполняемых потоков
-        // скачаневание сделать асинхроным
-        // ограниччить количесто
-        // конслейшен токен прерывание тасок
+             
              
         private void StartDownload()
         {
-            prog.Maximum = textBoxes.Count;
-            Task[] arr = new Task[textBoxes.Count];
+            prog.Maximum = textBoxes.Count;           
 
             for (int i = 0; i < textBoxes.Count; i++)
             {
-                if(cancel == true)
-                {
-                    break;
-                }
+              string tmp = textBoxes[i].Text; 
+              Task.Factory.StartNew(() => DownloadImage(tmp)).Wait();
 
-                prog.Value = i+1;
-                
-                arr[i] = Task.Run(()
-                    =>DownloadImage(textBoxes[i], i.ToString()));          
-                count = i;
+              prog.Value = i+1;               
+            }
+            Cansel.Content = "Cancel";         
+        }
+
+        private void Cancel()
+        {
+            try
+            {
+                ct.ThrowIfCancellationRequested();
+            }          
+            finally
+            {
+                tokenSource.Dispose();
             }
 
-            //foreach (var t in arr)
-            //    t.Start();
-
-            MessageBox.Show("Done");
-            EndDownload();
         }
 
         private void EndDownload()
         {
-            prog.Value = 0;
-            Stack.Children.RemoveRange(1, Stack.Children.Count - 1);
-            textBoxes = new List<TextBox>();
-            count = 0;
-        }
+            if(Cansel.Content.ToString() == "Cancel")
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("Cleaned!");
+                prog.Value = 0;
+                Stack.Children.RemoveRange(1, Stack.Children.Count - 1);
+                textBoxes = new List<TextBox>();
+                Download.IsEnabled = true;
+                ct.ThrowIfCancellationRequested();
+            }
+
+          
+        }       
 
         private void InputInTextboxes()
         {
@@ -103,18 +114,24 @@ namespace Module_17
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             AddLineForDownLoad();
+            Download.IsEnabled = true;           
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Add.IsEnabled = false;
             InputInTextboxes();            
-            StartDownload();          
+            StartDownload();
+            Download.IsEnabled = false;
+            Cansel.Content = "Reset";
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            cancel = true;
+        {        
             EndDownload();
+            Cansel.Content = "Reset";
+            Add.IsEnabled = true;
+            Download.IsEnabled = false;     
         }
     }
 }
