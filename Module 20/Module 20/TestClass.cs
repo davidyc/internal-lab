@@ -16,13 +16,14 @@ namespace Module_20
 
         public int MyProperty { get; set; }
         public string MyStringProperty { get; set; }
-   
+        public _Region Adress { get; set; }
+
 
         public TestClass()
         {
             fieldPrivate = 1;
             fieldProcected = 1;
-           
+            Adress = new _Region { City = "Karaganda" };
         }
 
         public TestClass(string fPublic, bool staticBool) : this()

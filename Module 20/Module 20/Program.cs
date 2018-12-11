@@ -16,12 +16,12 @@ namespace Module_20
             var PropertyValue =  ReflectionHelper.GetPropertyValue(testClass, "MyProperty");
             Console.WriteLine("MyProperty value = " + PropertyValue);
 
-            var PropertyValueAdress = ReflectionHelper.GetPropertyValue(testClass, "MyProperty");
-            Console.WriteLine("Adress  value = " + PropertyValue);
+            var PropertyValueAdress = ReflectionHelper.GetPropertyValue(testClass, "Adress.City");
+            Console.WriteLine("Adress  value = " + PropertyValueAdress);
 
 
             var GetPropertyValueByType = ReflectionHelper.GetPropertyValueByType(testClass, "System.Int32");
-            Console.WriteLine("System.String value = " + GetPropertyValueByType);
+            Console.WriteLine("System.Int32 value = " + GetPropertyValueByType);
 
 
             var HasProperty = ReflectionHelper.HasProperty(testClass, "MyProperty");

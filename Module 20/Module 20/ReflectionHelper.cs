@@ -14,9 +14,10 @@ public static class ReflectionHelper
 
         for (int i = 1; i < array.Length; i++)
         {
-            pi = pi.GetType().GetProperty(array[i]);
-        }  
-           
+            var X = pi.GetType();
+
+            Console.WriteLine();
+        }         
 
         if (pi != null)
         {
@@ -57,7 +58,7 @@ public static class ReflectionHelper
         PropertyInfo[] pi = instance.GetType().GetProperties();
         List<object> valueProp = new List<object>();
        
-        for (int i = 0; i <= pi.Length; i++)
+        for (int i = 0; i < pi.Length; i++)
         {
             var tmpPI = GetPropertyValue(instance, propertyNames[i]);
 
