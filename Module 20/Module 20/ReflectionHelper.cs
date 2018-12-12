@@ -9,21 +9,31 @@ public static class ReflectionHelper
     {
         //желательно предусмотреть чтобы propertyName мог быть составным(например address.city.region)   
         var array = propertyName.Split('.');
+        
+        object res = null;
+        object instance2 = null;
 
-        PropertyInfo pi = instance.GetType().GetProperty(array[0]);
+        instance2 = instance.GetType().GetProperty(array[0]).GetValue(instance, null);
+        if (array.Length == 1)
+        {
+            return instance2;
+        }
 
         for (int i = 1; i < array.Length; i++)
         {
-            var X = pi.GetType();
-
-            Console.WriteLine();
-        }         
-
-        if (pi != null)
-        {
-            return pi.GetValue(instance, null);
+            try
+            {
+                instance2 = instance.GetType().GetProperty(array[i - 1]).GetValue(instance, null);
+                res = instance2.GetType().GetProperty(array[i]).GetValue(instance2, null);
+            }
+            catch(NullReferenceException)
+            {
+                return null;
+            }
+                    
         }
-        return null;
+
+        return res;     
     }
 
     public static object GetPropertyValueByType(object instance, string propertyType)
@@ -47,9 +57,38 @@ public static class ReflectionHelper
 
     public static bool HasProperty(object instance, string propertyName)
     {
-        //желательно предусмотреть чтобы propertyName мог быть составным(например address.city.region)
-        PropertyInfo pi = instance.GetType().GetProperty(propertyName);
-        return pi != null ? true : false;
+        //желательно предусмотреть чтобы propertyName мог быть составным(например address.city.region)       
+
+        var array = propertyName.Split('.');
+
+        object res = null;
+        object instance2 = null;
+
+        instance2 = instance.GetType().GetProperty(array[0]);
+        if (array.Length == 1)
+        {
+            return instance2 != null ? true : false; 
+        }
+
+        for (int i = 1; i < array.Length; i++)
+        {
+            try
+            {
+                instance2 = instance.GetType().GetProperty(array[i - 1]).GetValue(instance,null);
+                res = instance2.GetType().GetProperty(array[i]);
+            }
+            catch (NullReferenceException)
+            {
+                return false;
+            }
+
+        }
+
+        return res != null ? true : false; ;
+
+
+
+        
     }
 
     public static object GetPropertyValue(object instance, params string[] propertyNames)
@@ -70,19 +109,66 @@ public static class ReflectionHelper
         return valueProp;
     }
 
+    public static PropertyInfo GetProperty(object instance, string propertyName) { 
+    
+        //желательно предусмотреть чтобы propertyName мог быть составным(например address.city.region)   
+        var array = propertyName.Split('.');
 
-    public static PropertyInfo GetProperty(object instance, string propertyName)
-    {
-        //желательно предусмотреть чтобы propertyName мог быть составным (например address.city.region)
-        return instance.GetType().GetProperty(propertyName);
+        PropertyInfo res = null;
+        object instance2 = null;
+
+        res = instance.GetType().GetProperty(array[0]);
+        if (array.Length == 1)
+        {
+            return res;
+        }
+
+        for (int i = 1; i < array.Length; i++)
+        {
+            try
+            {
+                instance2 = instance.GetType().GetProperty(array[i - 1]).GetValue(instance, null);
+                res = instance2.GetType().GetProperty(array[i]);
+            }
+            catch (NullReferenceException)
+            {
+                return null;
+            }
+        }
+
+        return res;
     }
 
     public static Type GetPropertyType(object instance, string propertyName)
     {
         //желательно предусмотреть чтобы propertyName мог быть составным (например address.city.region)
         var pi = instance.GetType().GetProperty(propertyName);
+        var array = propertyName.Split('.');
 
-        return pi.PropertyType;
+        PropertyInfo res = null;
+        object instance2 = null;
+
+        res = instance.GetType().GetProperty(array[0]);
+        if (array.Length == 1)
+        {
+            return res.PropertyType;
+        }
+
+        for (int i = 1; i < array.Length; i++)
+        {
+            try
+            {
+                instance2 = instance.GetType().GetProperty(array[i - 1]).GetValue(instance, null);
+                res = instance2.GetType().GetProperty(array[i]);
+            }
+            catch (NullReferenceException)
+            {
+                return null;
+            }
+        }
+
+        return res.PropertyType;
+        
     }
 
     public static List<Attribute> GetCustomAttributes(PropertyInfo property)
