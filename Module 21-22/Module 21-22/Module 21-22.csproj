@@ -35,9 +35,11 @@
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -52,15 +54,62 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authors.cs">
+      <DependentUpon>BookstoreEntiti.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Books.cs">
+      <DependentUpon>BookstoreEntiti.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BookStore.cs" />
+    <Compile Include="BookstoreEntiti.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookstoreEntiti.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BookstoreEntiti.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookstoreEntiti.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BookstoreEntiti.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BookstoreEntiti.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Customers.cs">
+      <DependentUpon>BookstoreEntiti.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Orders.cs">
+      <DependentUpon>BookstoreEntiti.tt</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EntityDeploy Include="BookstoreEntiti.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BookstoreEntiti.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="BookstoreEntiti.edmx.diagram">
+      <DependentUpon>BookstoreEntiti.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BookstoreEntiti.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BookstoreEntiti.edmx</DependentUpon>
+      <LastGenOutput>BookstoreEntiti.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="BookstoreEntiti.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BookstoreEntiti.edmx</DependentUpon>
+      <LastGenOutput>BookstoreEntiti.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
